@@ -61,6 +61,7 @@ public class ClienteService {
 			while (resultSet.next()) {
 				cliente = new Cliente();
 				cliente.setId(resultSet.getInt("id"));
+				cliente.setNombre(resultSet.getString("nombre"));
 				cliente.setApellido(resultSet.getString("apellido"));
 				cliente.setDireccion(resultSet.getString("direccion"));
 				cliente.setDni(resultSet.getInt("dni"));
@@ -75,7 +76,6 @@ public class ClienteService {
 				System.out.println("Error al cerrar el ResultSet: " + ex.getMessage());
 			}
 		}
-
 		return Optional.ofNullable(cliente);
 	}
 
@@ -94,6 +94,10 @@ public class ClienteService {
 	    } else {
 	        return Optional.empty();
 	    }
+	}
+	
+	public void create(Cliente cliente) {
+		conexionEx1.insertData("Ejercicio1", cliente);
 	}
 
 }

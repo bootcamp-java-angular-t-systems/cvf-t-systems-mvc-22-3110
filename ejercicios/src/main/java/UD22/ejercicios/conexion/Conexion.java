@@ -12,6 +12,9 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+import java.sql.ResultSetMetaData;
+
+
 import java.lang.reflect.Field;
 import java.sql.Connection;
 

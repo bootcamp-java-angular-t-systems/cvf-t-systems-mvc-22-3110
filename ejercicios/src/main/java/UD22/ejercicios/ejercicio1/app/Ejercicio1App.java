@@ -12,10 +12,10 @@ public class Ejercicio1App {
 
 		Utils.populateDatabase();
 
-		Cliente cliente = new Cliente();
 		ListView view = new ListView();
 		ClienteService service = ClienteService.getInstance();
-		ClienteController controlador = new ClienteController(cliente, view, service);
+		
+		ClienteController controlador = new ClienteController(view, service);
 		controlador.iniciarVista();
 
 	}

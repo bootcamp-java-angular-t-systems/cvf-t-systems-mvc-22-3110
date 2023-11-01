@@ -14,6 +14,7 @@ public class UpdateView extends JFrame {
     private JTextField nombreField;
     private JTextField apellidoField;
     private Cliente cliente;
+    private JButton guardarBtn;
 
     public UpdateView(Cliente cliente) {
         this.cliente = cliente;
@@ -32,7 +33,7 @@ public class UpdateView extends JFrame {
         titleLabel.setBounds(20, 10, 400, 30);
         titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
         panel.add(titleLabel);
-
+        
         JLabel nombreLabel = new JLabel("Nombre:");
         nombreField = new JTextField(20);
         nombreLabel.setBounds(20, 50, 80, 20);
@@ -49,18 +50,31 @@ public class UpdateView extends JFrame {
         panel.add(apellidoLabel);
         panel.add(apellidoField);
 
-        
-        
-        JButton guardarButton = new JButton("Guardar");
-        guardarButton.setBounds(150, 120, 100, 30);
+        guardarBtn = new JButton("Almacenar cambios");
+        guardarBtn.setBounds(150, 120, 100, 30);
 
-        // MANDAR A CONTROLLER
-        guardarButton.addActionListener(e -> {
-            String nuevoNombre = nombreField.getText();
-            String nuevoApellido = apellidoField.getText();
-            dispose();
-        });
-        panel.add(guardarButton);
+        
+        panel.add(guardarBtn);
     }
+    
+
+	public JTextField getNombreField() {
+		return nombreField;
+	}
+
+	public JTextField getApellidoField() {
+		return apellidoField;
+	}
+
+	public JButton getGuardarBtn() {
+		return guardarBtn;
+	}
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	
 }
 

@@ -1,6 +1,5 @@
 package UD22.ejercicios.ejercicio1.models;
 
-
 public class Cliente {
 	private int id;
 	private static int counter = 0;
@@ -8,22 +7,28 @@ public class Cliente {
 	private String apellido;
 	private String direccion;
 	private int dni;
-	
+
 	public Cliente(String nombre, String apellido, String direccion, int dni) {
 		counter++;
-	    this.id = counter;
-	    this.nombre = nombre;
-	    this.apellido = apellido;
-	    this.direccion = direccion;
-	    this.dni = dni;
+		this.id = counter;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.direccion = direccion;
+		this.dni = dni;
+		System.out.println(this.toString());
 	}
-	
+
 	public Cliente() {	}
 
 	public int getId() {
 		return id;
 	}
 
+	public void setId() {
+		counter++;
+		this.id = counter;
+	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -59,6 +64,11 @@ public class Cliente {
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", direccion=" + direccion
+				+ ", dni=" + dni + "]";
+	}
+
 }
