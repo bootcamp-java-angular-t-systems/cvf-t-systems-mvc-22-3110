@@ -17,6 +17,7 @@ import java.awt.Component;
 public class ListClientView extends JFrame {
 	private JPanel clientesPanel;
 	private JButton btnCrearCliente;
+	private JButton btnVideos;
 	
 	public ListClientView() {
 
@@ -38,7 +39,35 @@ public class ListClientView extends JFrame {
 		int xPosition = clientesPanel.getX() + clientesPanel.getWidth() - buttonWidth;
 		btnCrearCliente.setBounds(xPosition, 23, buttonWidth, 28);
 		getContentPane().add(btnCrearCliente);
+
+		btnVideos = new JButton("Videos");
+		btnVideos.setForeground(Color.WHITE);
+		btnVideos.setBackground(new Color(0, 128, 128));
+		int videoButtonWidth = btnVideos.getPreferredSize().width;
+		int xVideoButtonPosition = xPosition - videoButtonWidth - 10;
+		btnVideos.setBounds(xVideoButtonPosition, 23, videoButtonWidth, 28);
+		getContentPane().add(btnVideos);
+
+
 	}
+	
+	
+
+	public void setClientesPanel(JPanel clientesPanel) {
+		this.clientesPanel = clientesPanel;
+	}
+
+
+	public JButton getBtnVideos() {
+		return btnVideos;
+	}
+
+
+	public void setBtnVideos(JButton btnVideos) {
+		this.btnVideos = btnVideos;
+	}
+
+
 
 	public JButton getBtnCrearCliente() {
 		return btnCrearCliente;
@@ -97,13 +126,6 @@ public class ListClientView extends JFrame {
 			btnUpdateCliente.setBackground(Color.ORANGE);
 			btnUpdateCliente.setBounds(675, yOffset, 89, 23);
 			btnUpdateCliente.setAlignmentX(Component.LEFT_ALIGNMENT);
-			
-			JButton btnVideos = new JButton("Videos");
-			btnVideos.putClientProperty("clientID", cliente.getId());
-			btnVideos.setForeground(Color.BLACK);
-			btnVideos.setBackground(Color.CYAN);
-			btnVideos.setBounds(772, yOffset, 89, 23);
-			btnVideos.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 			clientesPanel.add(lblId);
 			clientesPanel.add(lblNombre);
@@ -112,7 +134,6 @@ public class ListClientView extends JFrame {
 			clientesPanel.add(lblDni);
 			clientesPanel.add(btnDeleteCliente);
 			clientesPanel.add(btnUpdateCliente);
-			clientesPanel.add(btnVideos);
 
 			yOffset += 30;
 		}
@@ -157,11 +178,7 @@ public class ListClientView extends JFrame {
 		lblUpdateCliente.setBounds(675, yOffset, 55, 23);
 		lblUpdateCliente.setAlignmentX(Component.LEFT_ALIGNMENT);
 		clientesPanel.add(lblUpdateCliente);
-		
-		JLabel lblVideos = new JLabel("VIDEOS");
-	    lblVideos.setBounds(772, yOffset, 60, 23);
-	    lblVideos.setAlignmentX(Component.LEFT_ALIGNMENT);
-	    clientesPanel.add(lblVideos);
+
 
 		clientesPanel.add(lblIdCliente);
 		clientesPanel.add(lblNombreCliente);

@@ -2,7 +2,7 @@ package UD22.ejercicios.ejercicio2.models;
 
 public class Video {
 	private int id;
-	private static int counter = 0;
+	private static int counter = 5;
 	private String title;
 	private String director;
 	private int clientId;

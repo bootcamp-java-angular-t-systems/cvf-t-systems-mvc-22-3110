@@ -53,6 +53,7 @@ public class ClienteController implements ActionListener {
 			}
 		}
 		vista.getBtnCrearCliente().addActionListener(this);
+		vista.getBtnVideos().addActionListener(this);
 	}
 
 	@Override
@@ -73,6 +74,17 @@ public class ClienteController implements ActionListener {
 		if (e.getActionCommand().equals("Almacenar cambios")) {
 			clickGuardarModificarCliente();
 		}
+		// Abre la ventana con los videos
+		if (e.getActionCommand().equals("Videos")) {
+			System.out.println("clickar videos");
+			ListVideoView listVideoView = ListVideoView.getInstance();
+			VideoService videoService = VideoService.getInstance();
+
+			VideoController videoController = new VideoController(listVideoView, videoService);
+			videoController.iniciarVista();
+			// TODO videoController.iniciarVista(clientId);
+			
+		}
 
 		for (Component component : components) {
 			if (component instanceof JButton) {
@@ -88,16 +100,7 @@ public class ClienteController implements ActionListener {
 						int clientId = (int) button.getClientProperty("clientID");
 						clickAbrirFormModificarCliente(clientId);
 					}
-					if (e.getActionCommand().equals("Videos")) {
-						System.out.println("clickar videos");
-						ListVideoView listVideoView = ListVideoView.getInstance();
-						VideoService videoService = VideoService.getInstance();
-
-						VideoController videoController = new VideoController(listVideoView, videoService);
-						videoController.iniciarVista();
-						// TODO videoController.iniciarVista(clientId);
-						
-					}
+					
 					
 					// Abre la lista de videos del cliente
 					/*
@@ -139,9 +142,7 @@ public class ClienteController implements ActionListener {
 	}
 
 	private void clickAbrirFormNuevoCliente() {
-		// TODO singleton CerateClientView
 		createView = new CreateClientView();
-		// TODO solucionar: sie esto se crea +1 vez, craeremos muchos action listener
 		createView.getCrearBtn().addActionListener(this);
 		createView.setVisible(true);
 	}

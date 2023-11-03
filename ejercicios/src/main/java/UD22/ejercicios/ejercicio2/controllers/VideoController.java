@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import UD22.ejercicios.ejercicio2.models.Cliente;
 import UD22.ejercicios.ejercicio2.models.Video;
 import UD22.ejercicios.ejercicio2.services.VideoService;
+import UD22.ejercicios.ejercicio2.views.cliente.CreateClientView;
 import UD22.ejercicios.ejercicio2.views.video.CreateVideoView;
 import UD22.ejercicios.ejercicio2.views.video.ListVideoView;
 import UD22.ejercicios.ejercicio2.views.video.UpdateVideoView;
@@ -31,7 +32,7 @@ public class VideoController implements ActionListener {
 		printearVideos();
 		vista.setTitle("Lista de Clientes");
 		vista.setSize(1000, 500);
-		vista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		vista.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		vista.setLocationRelativeTo(null);
 		vista.setVisible(true);
 		crearActionListeners();
@@ -56,20 +57,24 @@ public class VideoController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Component[] components = vista.getVideosPanel().getComponents();
-
+		System.out.println("Evento detectado");
 		// Abre el formulario de creacion de video
 		if (e.getActionCommand().equals("Crear video")) {
+			System.out.println("crerar video");
+			clickAbrirFormNuevoVideo();
 			//createAction();
 		}
 
 		// Guarda el formulario y crea un nuevo video
 		if (e.getActionCommand().equals("Guardar video")) {
-			//storeAction();
+			System.out.println("Guardar video");
+			clickGuardarNuevoVideo();
 		}
 
 		// Guarda la modificacion del video
 		if (e.getActionCommand().equals("Almacenar cambios")) {
-			//updateAction();
+			System.out.println("almacenar cambios");
+			clickGuardarModificarVideo();
 		}
 
 		for (Component component : components) {
@@ -94,14 +99,10 @@ public class VideoController implements ActionListener {
 	}
 	
 	private void clickAbrirFormModificarCliente(int videoId) {
-		
 		Video video = service.findById(videoId).get();
-		updateView = UpdateVideoView.getInstance();
-		updateView.setVideo(video);
-		// TODO si invocas "iniciarVista" antes que "setVideo" el codigo explota
-		updateView.iniciarVista();
+		updateView = new UpdateVideoView();
+		updateView.showVideoView(video);
 		updateView.getGuardarBtn().addActionListener(this);
-		updateView.setVisible(true);
 	}
 
 	private void clickEliminarVideo(int videoId) {
@@ -109,28 +110,49 @@ public class VideoController implements ActionListener {
 		printearVideos();
 		crearActionListeners();
 	}
+	
+	
+	private void clickGuardarModificarVideo() {
+		Video video = updateView.getVideo();
+		String nuevoTitulo = updateView.getTituloField().getText();
+		String nuevoDirector = updateView.getDirectorField().getText();
 
-/*
-	private void updateAction() {
-		Cliente video = updateView.getCliente();
-		String nuevoNombre = updateView.getNombreField().getText();
-		String nuevoApellido = updateView.getApellidoField().getText();
-
-		video.setNombre(nuevoNombre);
-		video.setApellido(nuevoApellido);
+		video.setTitle(nuevoTitulo);
+		video.setDirector(nuevoDirector);
+		System.out.println("nuevo titulo " + nuevoTitulo);
+		System.out.println("nuevo dirctor " + nuevoDirector);
 		service.update(video, "id");
 		printearVideos();
 		crearActionListeners();
 		updateView.dispose();
 	}
-	*/
-/*
-	private void createAction() {
-		createView = new CreateClientView();
+
+
+	public void clickAbrirFormNuevoVideo() {
+		createView = new CreateVideoView();
 		createView.getCrearBtn().addActionListener(this);
 		createView.setVisible(true);
 	}
-	*/
+	
+	private void clickGuardarNuevoVideo() {
+	    String nuevoTitulo = createView.getTitleField().getText();
+	    String nuevoDirector = createView.getDirectorField().getText();
+	    int nuevoClienteId = Integer.parseInt(createView.getClientIdField().getText());
+
+	    Video video = new Video();
+	    video.setId();
+	    video.setTitle(nuevoTitulo);
+	    video.setDirector(nuevoDirector);
+	    video.setClientId(nuevoClienteId);
+
+	    service.create(video);
+
+	    printearVideos();
+	    crearActionListeners();
+	    createView.dispose();
+	}
+
+	
 /*
 	private void storeAction() {
 		String nuevoNombre = createView.getNombreField().getText();

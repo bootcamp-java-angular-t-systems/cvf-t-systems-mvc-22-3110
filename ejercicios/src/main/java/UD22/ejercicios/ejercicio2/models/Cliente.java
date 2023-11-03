@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Cliente {
 	private int id;
-	private static int counter = 0;
+	private static int counter = 5;
 	private String nombre;
 	private String apellido;
 	private String direccion;

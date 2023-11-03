@@ -9,7 +9,7 @@ public class Ejercicio2App {
 
 	public static void main(String[] args) {
 
-		Utils.populateDatabase();
+		//Utils.populateDatabase();
 
 		// TODO ListClientView singleton
 		ListClientView view = new ListClientView();

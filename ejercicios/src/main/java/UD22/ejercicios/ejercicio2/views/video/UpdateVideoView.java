@@ -12,22 +12,14 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 public class UpdateVideoView extends JFrame {
-	private static UpdateVideoView instance = null;
-    private JTextField nombreField;
+    private JTextField tituloField;
     private JTextField directorField;
     private Video video;
     private JButton guardarBtn;
     
-    public static UpdateVideoView getInstance() {
-    	if (instance == null)
-    		instance = new UpdateVideoView();
-    	return instance;
-    }
 
-    private UpdateVideoView() {
-
-        
-    }
+    public UpdateVideoView() {}
+    
     
     public void iniciarVista() {
     	setTitle("Modificar " + video.getTitle());
@@ -46,12 +38,12 @@ public class UpdateVideoView extends JFrame {
         panel.add(panelTitleLabel);
         
         JLabel titleLabel = new JLabel("Titulo:");
-        nombreField = new JTextField(20);
+        tituloField = new JTextField(20);
         titleLabel.setBounds(20, 50, 80, 20);
-        nombreField.setBounds(120, 50, 200, 20);
-        nombreField.setText(video.getTitle());
+        tituloField.setBounds(120, 50, 200, 20);
+        tituloField.setText(video.getTitle());
         panel.add(titleLabel);
-        panel.add(nombreField);
+        panel.add(tituloField);
 
         JLabel directorLabel = new JLabel("Director:");
         directorField = new JTextField(20);
@@ -64,8 +56,19 @@ public class UpdateVideoView extends JFrame {
         guardarBtn = new JButton("Almacenar cambios");
         guardarBtn.setBounds(150, 120, 100, 30);
 
+        System.out.println("UpdateVideoView title: " +  video.getTitle());
+        System.out.println("UpdateVideoView director: " +  video.getDirector());
+        tituloField.setText(video.getTitle());
+        directorField.setText(video.getDirector());
         
         panel.add(guardarBtn);
+    }
+    
+    
+    public void showVideoView(Video video) {
+    	this.video = video;
+    	iniciarVista();
+    	setVisible(true);
     }
     
 
@@ -73,11 +76,11 @@ public class UpdateVideoView extends JFrame {
     	this.video = video;
     }
     
-	public JTextField getNombreField() {
-		return nombreField;
+	public JTextField getTituloField() {
+		return tituloField;
 	}
 
-	public JTextField getApellidoField() {
+	public JTextField getDirectorField() {
 		return directorField;
 	}
 
