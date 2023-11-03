@@ -100,13 +100,6 @@ public class ClienteController implements ActionListener {
 						int clientId = (int) button.getClientProperty("clientID");
 						clickAbrirFormModificarCliente(clientId);
 					}
-					
-					
-					// Abre la lista de videos del cliente
-					/*
-					 * if (e.getActionCommand().equals("Videos")) { int clientId = (int)
-					 * button.getClientProperty("clientID"); videosListAction(clientId); }
-					 */
 				}
 			}
 		}

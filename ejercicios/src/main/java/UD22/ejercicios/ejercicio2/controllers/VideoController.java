@@ -152,37 +152,4 @@ public class VideoController implements ActionListener {
 	    createView.dispose();
 	}
 
-	
-/*
-	private void storeAction() {
-		String nuevoNombre = createView.getNombreField().getText();
-		String nuevoApellido = createView.getApellidoField().getText();
-		String nuevaDireccion = createView.getDireccionField().getText();
-		int nuevoDni = Integer.parseInt(createView.getDniField().getText());
-
-		Cliente video = new Cliente();
-
-		video.setId();
-		video.setNombre(nuevoNombre);
-		video.setApellido(nuevoApellido);
-		video.setDireccion(nuevaDireccion);
-		video.setDni(nuevoDni);
-		video.setFecha();
-
-		service.create(video);
-		printearVideos();
-		crearActionListeners();
-		createView.dispose();
-	}
-	*/
-/*
-	private void mostrarVideosButtonOnClick(int clientId) {
-		ListVideoView listVideoView = ListVideoView.getInstance();
-		VideoService videoService = VideoService.getInstance();
-
-		VideoController videoController = new VideoController(listVideoView, videoService);
-		videoController.iniciar(clientId);
-	}
-	*/
-
 }
