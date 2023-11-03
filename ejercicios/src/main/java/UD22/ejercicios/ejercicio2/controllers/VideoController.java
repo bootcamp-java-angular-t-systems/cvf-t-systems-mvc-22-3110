@@ -78,11 +78,13 @@ public class VideoController implements ActionListener {
 				if (button == e.getSource()) {
 					// Elimina un video
 					if (e.getActionCommand().equals("Delete")) {
-						int clientId = (int) button.getClientProperty("clientID");
-						//deleteAction(clientId);
+						System.out.println("delete video");
+						int videoId = (int) button.getClientProperty("videoID");
+						clickEliminarVideo(videoId);
 					}
 					// Abre el formulario de modificacion de un video
 					if (e.getActionCommand().equals("Update")) {
+						System.out.println("update video");
 						int clientId = (int) button.getClientProperty("clientID");
 						//editAction(clientId);
 					}
@@ -107,13 +109,13 @@ public class VideoController implements ActionListener {
 		updateView.setVisible(true);
 	}
 	*/
-/*
-	private void deleteAction(int clientId) {
-		service.delete(clientId);
+
+	private void clickEliminarVideo(int videoId) {
+		service.delete(videoId);
 		printearVideos();
 		crearActionListeners();
 	}
-	*/
+
 /*
 	private void updateAction() {
 		Cliente video = updateView.getCliente();

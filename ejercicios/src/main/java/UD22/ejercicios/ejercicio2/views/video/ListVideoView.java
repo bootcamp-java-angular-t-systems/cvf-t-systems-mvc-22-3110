@@ -55,80 +55,109 @@ public class ListVideoView extends JFrame {
 		return videoPanel;
 	}
 
-	public void generarVideos(List<Video> videos) {
-	    videoPanel.removeAll();
-	    videoPanel.revalidate();
-	    videoPanel.repaint();
-	    generarCabeceraVideos();
+	
+		public void generarVideos(List<Video> videos) {
+		    videoPanel.removeAll();
+		    videoPanel.revalidate();
+		    videoPanel.repaint();
+		    generarCabeceraVideos();
 
-	    int yOffset = 40;
+		    int yOffset = 40;
+		    int buttonWidth = 89;
+		    int buttonHeight = 23;
+		    int buttonMargin = 10;
+		    int xStart = 0;
 
-	    for (Video video : videos) {
+		    for (Video video : videos) {
+		        JLabel lblId = new JLabel(String.valueOf(video.getId()));
+		        lblId.putClientProperty("videoID", video.getId());
+		        lblId.setBounds(xStart, yOffset, 52, 28);
 
-	        JLabel lblId = new JLabel(String.valueOf(video.getId()));
-	        lblId.putClientProperty("videoID", video.getId());
-	        lblId.setBounds(0, yOffset, 52, 28);
-	        lblId.setAlignmentX(Component.LEFT_ALIGNMENT);
+		        xStart += 52;
 
-	        JLabel lblTitulo = new JLabel(video.getTitle());
-	        lblTitulo.putClientProperty("videoID", video.getId());
-	        lblTitulo.setBounds(62, yOffset, 105, 28);
-	        lblTitulo.setAlignmentX(Component.LEFT_ALIGNMENT);
+		        JLabel lblTitulo = new JLabel(video.getTitle());
+		        lblTitulo.putClientProperty("videoID", video.getId());
+		        lblTitulo.setBounds(xStart, yOffset, 155, 28);
 
-	        JButton btnDeleteVideo = new JButton("Delete");
-	        btnDeleteVideo.putClientProperty("videoID", video.getId());
-	        btnDeleteVideo.setForeground(Color.BLACK);
-	        btnDeleteVideo.setBackground(Color.RED);
-	        btnDeleteVideo.setBounds(578, yOffset, 89, 23);
-	        btnDeleteVideo.setAlignmentX(Component.LEFT_ALIGNMENT);
+		        xStart += 165;
 
-	        JButton btnUpdateVideo = new JButton("Update");
-	        btnUpdateVideo.putClientProperty("videoID", video.getId());
-	        btnUpdateVideo.setForeground(Color.BLACK);
-	        btnUpdateVideo.setBackground(Color.ORANGE);
-	        btnUpdateVideo.setBounds(675, yOffset, 89, 23);
-	        btnUpdateVideo.setAlignmentX(Component.LEFT_ALIGNMENT);
+		        JLabel lblDirector = new JLabel(video.getDirector());
+		        lblDirector.putClientProperty("videoID", video.getId());
+		        lblDirector.setBounds(xStart, yOffset, 175, 28);
 
+		        xStart += 185;
 
-	        videoPanel.add(lblId);
-	        videoPanel.add(lblTitulo);
-	        videoPanel.add(btnDeleteVideo);
-	        videoPanel.add(btnUpdateVideo);
+		        JButton btnDeleteVideo = new JButton("Delete");
+		        btnDeleteVideo.putClientProperty("videoID", video.getId());
+		        btnDeleteVideo.setForeground(Color.BLACK);
+		        btnDeleteVideo.setBackground(Color.RED);
+		        btnDeleteVideo.setBounds(xStart, yOffset, buttonWidth, buttonHeight);
 
-	        yOffset += 30;
-	    }
+		        xStart += buttonWidth + buttonMargin;
 
-	    revalidate();
-	}
+		        JButton btnUpdateVideo = new JButton("Update");
+		        btnUpdateVideo.putClientProperty("videoID", video.getId());
+		        btnUpdateVideo.setForeground(Color.BLACK);
+		        btnUpdateVideo.setBackground(Color.ORANGE);
+		        btnUpdateVideo.setBounds(xStart, yOffset, buttonWidth, buttonHeight);
 
+		        videoPanel.add(lblId);
+		        videoPanel.add(lblTitulo);
+		        videoPanel.add(lblDirector);
+		        videoPanel.add(btnDeleteVideo);
+		        videoPanel.add(btnUpdateVideo);
 
-	private void generarCabeceraVideos() {
-	    int yOffset = 0;
+		        yOffset += 30;
+		        xStart = 0;
+		    }
 
-	    JLabel lblIdVideo = new JLabel("ID");
-	    lblIdVideo.setBounds(0, yOffset, 52, 28);
-	    lblIdVideo.setAlignmentX(Component.LEFT_ALIGNMENT);
-	    videoPanel.add(lblIdVideo);
-
-	    JLabel lblTituloVideo = new JLabel("TÍTULO");
-	    lblTituloVideo.setBounds(62, yOffset, 105, 28);
-	    lblTituloVideo.setAlignmentX(Component.LEFT_ALIGNMENT);
-	    videoPanel.add(lblTituloVideo);
-
-
-	    JLabel lblDeleteVideo = new JLabel("DELETE");
-	    lblDeleteVideo.setBounds(578, yOffset, 52, 23);
-	    lblDeleteVideo.setAlignmentX(Component.LEFT_ALIGNMENT);
-	    videoPanel.add(lblDeleteVideo);
-
-	    JLabel lblUpdateVideo = new JLabel("UPDATE");
-	    lblUpdateVideo.setBounds(675, yOffset, 55, 23);
-	    lblUpdateVideo.setAlignmentX(Component.LEFT_ALIGNMENT);
-	    videoPanel.add(lblUpdateVideo);
+		    revalidate();
+		}
 
 
+		private void generarCabeceraVideos() {
+		    int yOffset = 0;
+		    int xStart = 0;
 
-	    yOffset += 30;
-	}
+		    JLabel lblIdVideo = new JLabel("ID");
+		    lblIdVideo.setBounds(xStart, yOffset, 52, 28);
+		    videoPanel.add(lblIdVideo);
+
+		    xStart += 52;
+
+		    JLabel lblTituloVideo = new JLabel("TÍTULO");
+		    lblTituloVideo.setBounds(xStart, yOffset, 150, 28);
+		    videoPanel.add(lblTituloVideo);
+
+		    xStart += 150;
+
+		    JLabel lblDirectorVideo = new JLabel("DIRECTOR");
+		    lblDirectorVideo.setBounds(xStart, yOffset, 225, 28);
+		    videoPanel.add(lblDirectorVideo);
+
+		    int buttonWidth = 55;
+
+		    xStart += 225;
+
+		    JLabel lblDeleteVideo = new JLabel("DELETE");
+		    lblDeleteVideo.setBounds(xStart, yOffset, buttonWidth, 23);
+		    videoPanel.add(lblDeleteVideo);
+
+		    xStart += buttonWidth + 20;
+
+		    JLabel lblUpdateVideo = new JLabel("UPDATE");
+		    lblUpdateVideo.setBounds(xStart, yOffset, 85, 23);
+		    videoPanel.add(lblUpdateVideo);
+
+		    yOffset += 30;
+		}
+
+
+
+
+
+
+
+		
 
 }
