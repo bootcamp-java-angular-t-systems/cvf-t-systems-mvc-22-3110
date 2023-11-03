@@ -1,4 +1,4 @@
-package UD22.ejercicios.ejercicio1.controllers;
+package UD22.ejercicios.ejercicio2.controllers;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -8,21 +8,23 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import UD22.ejercicios.ejercicio1.models.Cliente;
-import UD22.ejercicios.ejercicio1.services.ClienteService;
-import UD22.ejercicios.ejercicio1.views.CreateView;
-import UD22.ejercicios.ejercicio1.views.ListView;
-import UD22.ejercicios.ejercicio1.views.UpdateView;
+import UD22.ejercicios.ejercicio2.models.Cliente;
+import UD22.ejercicios.ejercicio2.services.ClienteService;
 import UD22.ejercicios.ejercicio2.services.VideoService;
-	
+import UD22.ejercicios.ejercicio2.views.cliente.CreateClientView;
+import UD22.ejercicios.ejercicio2.views.cliente.ListClientView;
+import UD22.ejercicios.ejercicio2.views.cliente.UpdateClientView;
+import UD22.ejercicios.ejercicio2.views.video.CreateVideoView;
+import UD22.ejercicios.ejercicio2.views.video.ListVideoView;
+
 public class ClienteController implements ActionListener {
 
-	private ListView vista;
+	private ListClientView vista;
 	private ClienteService service;
-	private UpdateView updateView;
-	private CreateView createView;
+	private UpdateClientView updateView;
+	private CreateClientView createView;
 
-	public ClienteController(ListView vista, ClienteService service) {
+	public ClienteController(ListClientView vista, ClienteService service) {
 		this.vista = vista;
 		this.service = service;
 	}
@@ -30,7 +32,7 @@ public class ClienteController implements ActionListener {
 	public void iniciarVista() {
 		printearClientes();
 		vista.setTitle("Lista de Clientes");
-		vista.setSize(900, 500);
+		vista.setSize(1000, 500);
 		vista.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vista.setLocationRelativeTo(null);
 		vista.setVisible(true);
@@ -61,12 +63,12 @@ public class ClienteController implements ActionListener {
 		if (e.getActionCommand().equals("Crear cliente")) {
 			clickAbrirFormNuevoCliente();
 		}
-		
+
 		// Guarda el formulario y crea un nuevo cliente
 		if (e.getActionCommand().equals("Guardar cliente")) {
 			clickGuardarNuevoCliente();
 		}
-		
+
 		// Guarda la modificacion del cliente
 		if (e.getActionCommand().equals("Almacenar cambios")) {
 			clickGuardarModificarCliente();
@@ -84,10 +86,24 @@ public class ClienteController implements ActionListener {
 					// Abre el formulario de modificacion de un cliente
 					if (e.getActionCommand().equals("Update")) {
 						int clientId = (int) button.getClientProperty("clientID");
-											
-						VideoService videoService = VideoService.getInstance();
 						clickAbrirFormModificarCliente(clientId);
 					}
+					if (e.getActionCommand().equals("Videos")) {
+						System.out.println("clickar videos");
+						ListVideoView listVideoView = ListVideoView.getInstance();
+						VideoService videoService = VideoService.getInstance();
+
+						VideoController videoController = new VideoController(listVideoView, videoService);
+						videoController.iniciarVista();
+						// TODO videoController.iniciarVista(clientId);
+						
+					}
+					
+					// Abre la lista de videos del cliente
+					/*
+					 * if (e.getActionCommand().equals("Videos")) { int clientId = (int)
+					 * button.getClientProperty("clientID"); videosListAction(clientId); }
+					 */
 				}
 			}
 		}
@@ -96,7 +112,9 @@ public class ClienteController implements ActionListener {
 
 	private void clickAbrirFormModificarCliente(int clientId) {
 		Cliente cliente = service.findById(clientId).get();
-		updateView = new UpdateView(cliente);
+		// TODO hacer que esta clase sea singleton
+		updateView = new UpdateClientView(cliente);
+		// TODO crear método "showView(CLIENTE)" para no crear múltiples instancias 
 		updateView.getGuardarBtn().addActionListener(this);
 		updateView.setVisible(true);
 	}
@@ -119,33 +137,45 @@ public class ClienteController implements ActionListener {
 		crearActionListeners();
 		updateView.dispose();
 	}
-	
-	private void clickAbrirFormNuevoCliente() {	
-		createView = new CreateView();
+
+	private void clickAbrirFormNuevoCliente() {
+		// TODO singleton CerateClientView
+		createView = new CreateClientView();
+		// TODO solucionar: sie esto se crea +1 vez, craeremos muchos action listener
 		createView.getCrearBtn().addActionListener(this);
 		createView.setVisible(true);
 	}
-	
-	
+
 	private void clickGuardarNuevoCliente() {
 		String nuevoNombre = createView.getNombreField().getText();
 		String nuevoApellido = createView.getApellidoField().getText();
 		String nuevaDireccion = createView.getDireccionField().getText();
 		int nuevoDni = Integer.parseInt(createView.getDniField().getText());
-		
-		Cliente cliente = new Cliente(); 
-		
+
+		Cliente cliente = new Cliente();
+
 		cliente.setId();
 		cliente.setNombre(nuevoNombre);
 		cliente.setApellido(nuevoApellido);
 		cliente.setDireccion(nuevaDireccion);
 		cliente.setDni(nuevoDni);
-		
+		cliente.setFecha();
+
 		service.create(cliente);
 		printearClientes();
 		crearActionListeners();
 		createView.dispose();
 	}
 	
-	
+	// TODO esperar a la respuesta del profe
+/*
+	private void mostrarVideosButtonOnClick(int clientId) {
+		ListVideoView listVideoView = ListVideoView.getInstance();
+		VideoService videoService = VideoService.getInstance();
+
+		VideoController videoController = new VideoController(listVideoView, videoService);
+		videoController.iniciar(clientId);
+	}
+	*/
+
 }

@@ -1,11 +1,11 @@
-package UD22.ejercicios.ejercicio1.views;
+package UD22.ejercicios.ejercicio2.views.cliente;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import UD22.ejercicios.ejercicio1.models.Cliente;
+import UD22.ejercicios.ejercicio2.models.Cliente;
 
 import java.awt.Font;
 import java.util.List;
@@ -14,11 +14,11 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Component;
 
-public class ListView extends JFrame {
+public class ListClientView extends JFrame {
 	private JPanel clientesPanel;
 	private JButton btnCrearCliente;
 	
-	public ListView() {
+	public ListClientView() {
 
 		getContentPane().setLayout(null);
 		JLabel lblNewLabel = new JLabel("Clientes");
@@ -28,7 +28,7 @@ public class ListView extends JFrame {
 
 		clientesPanel = new JPanel();
 		clientesPanel.setLayout(null);
-		clientesPanel.setBounds(35, 80, 770, 800);
+		clientesPanel.setBounds(35, 80, 870, 800);
 		getContentPane().add(clientesPanel);
 
 		btnCrearCliente = new JButton("Crear cliente");
@@ -97,6 +97,13 @@ public class ListView extends JFrame {
 			btnUpdateCliente.setBackground(Color.ORANGE);
 			btnUpdateCliente.setBounds(675, yOffset, 89, 23);
 			btnUpdateCliente.setAlignmentX(Component.LEFT_ALIGNMENT);
+			
+			JButton btnVideos = new JButton("Videos");
+			btnVideos.putClientProperty("clientID", cliente.getId());
+			btnVideos.setForeground(Color.BLACK);
+			btnVideos.setBackground(Color.CYAN);
+			btnVideos.setBounds(772, yOffset, 89, 23);
+			btnVideos.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 			clientesPanel.add(lblId);
 			clientesPanel.add(lblNombre);
@@ -105,6 +112,7 @@ public class ListView extends JFrame {
 			clientesPanel.add(lblDni);
 			clientesPanel.add(btnDeleteCliente);
 			clientesPanel.add(btnUpdateCliente);
+			clientesPanel.add(btnVideos);
 
 			yOffset += 30;
 		}
@@ -149,6 +157,11 @@ public class ListView extends JFrame {
 		lblUpdateCliente.setBounds(675, yOffset, 55, 23);
 		lblUpdateCliente.setAlignmentX(Component.LEFT_ALIGNMENT);
 		clientesPanel.add(lblUpdateCliente);
+		
+		JLabel lblVideos = new JLabel("VIDEOS");
+	    lblVideos.setBounds(772, yOffset, 60, 23);
+	    lblVideos.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    clientesPanel.add(lblVideos);
 
 		clientesPanel.add(lblIdCliente);
 		clientesPanel.add(lblNombreCliente);
