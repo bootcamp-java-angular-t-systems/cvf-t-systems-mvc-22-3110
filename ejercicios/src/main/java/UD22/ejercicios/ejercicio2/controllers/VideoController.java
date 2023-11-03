@@ -38,8 +38,8 @@ public class VideoController implements ActionListener {
 	}
 
 	public void printearVideos() {
-		List<Video> clientes = service.findAll();
-		vista.generarVideos(clientes);
+		List<Video> videos = service.findAll();
+		vista.generarVideos(videos);
 	}
 
 	private void crearActionListeners() {
@@ -78,37 +78,31 @@ public class VideoController implements ActionListener {
 				if (button == e.getSource()) {
 					// Elimina un video
 					if (e.getActionCommand().equals("Delete")) {
-						System.out.println("delete video");
 						int videoId = (int) button.getClientProperty("videoID");
 						clickEliminarVideo(videoId);
 					}
 					// Abre el formulario de modificacion de un video
 					if (e.getActionCommand().equals("Update")) {
 						System.out.println("update video");
-						int clientId = (int) button.getClientProperty("clientID");
-						//editAction(clientId);
-					}
-					// Abre la lista de videos del video
-
-					if (e.getActionCommand().equals("Videos")) {
-						int clientId = (int) button.getClientProperty("clientID");
-						ListVideoView listVideoView = ListVideoView.getInstance();
-						VideoService videoService = VideoService.getInstance();
-						VideoController videoController = new VideoController(listVideoView, videoService);
+						int videoId = (int) button.getClientProperty("videoID");
+						clickAbrirFormModificarCliente(videoId);
 					}
 				}
 			}
 		}
 
 	}
-/*
-	private void editAction(int clientId) {
-		Cliente video = service.findById(clientId).get();
-		updateView = new UpdateClientView(video);
+	
+	private void clickAbrirFormModificarCliente(int videoId) {
+		
+		Video video = service.findById(videoId).get();
+		updateView = UpdateVideoView.getInstance();
+		updateView.setVideo(video);
+		// TODO si invocas "iniciarVista" antes que "setVideo" el codigo explota
+		updateView.iniciarVista();
 		updateView.getGuardarBtn().addActionListener(this);
 		updateView.setVisible(true);
 	}
-	*/
 
 	private void clickEliminarVideo(int videoId) {
 		service.delete(videoId);
