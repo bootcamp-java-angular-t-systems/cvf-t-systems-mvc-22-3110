@@ -7,95 +7,94 @@ import java.util.List;
 import java.util.Optional;
 
 import UD22.ejercicios.conexion.Conexion;
-import UD22.ejercicios.ejercicio2.models.Video;
+import UD22.ejercicios.ejercicio3.models.Proyecto;
 
 public class ProyectoService {
 	private static ProyectoService instance;
-	private Conexion conexionEx2;
+	private Conexion conexionEx3;
 
 	private ProyectoService() {
-		conexionEx2 = new Conexion("jdbc:mysql://localhost:3306?useTimezone=true&serverTimezone=UTC", "root",
+		conexionEx3 = new Conexion("jdbc:mysql://localhost:3306?useTimezone=true&serverTimezone=UTC", "root",
 				"contrasenya123");
 	}
 
 	public static ProyectoService getInstance() {
-		if (instance == null) {
+		if (instance == null)
 			instance = new ProyectoService();
-		}
 		return instance;
 	}
 
-	public List<Video> findAll() {
-		ResultSet resultSet = conexionEx2.getValues("Ejercicio2", "videos");
-		List<Video> videos = new ArrayList<>();
+	public List<Proyecto> findAll() {
+	    ResultSet resultSet = conexionEx3.getValues("Ejercicio3", "proyectos");
+	    List<Proyecto> proyectos = new ArrayList<>();
 
-		try {
-			while (resultSet.next()) {
-				Video video = new Video();
-				video.setId(resultSet.getInt("id"));
-				video.setTitle(resultSet.getString("title"));
-				video.setDirector(resultSet.getString("director"));
-				video.setClientId(resultSet.getInt("clientId"));
-				videos.add(video);
-			}
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-			System.out.println("Error en la adquisición de datos");
-		} finally {
-			try {
-				resultSet.close();
-			} catch (SQLException ex) {
-				System.out.println("Error al cerrar el ResultSet: " + ex.getMessage());
-			}
-		}
+	    try {
+	        while (resultSet.next()) {
+	            Proyecto proyecto = new Proyecto();
+	            proyecto.setId(resultSet.getString("id"));
+	            proyecto.setNombre(resultSet.getString("nombre"));
+	            proyecto.setHoras(resultSet.getInt("horas"));
+	            proyectos.add(proyecto);
+	        }
+	    } catch (SQLException ex) {
+	        System.out.println(ex.getMessage());
+	        System.out.println("Error en la adquisición de datos");
+	    } finally {
+	        try {
+	            resultSet.close();
+	        } catch (SQLException ex) {
+	            System.out.println("Error al cerrar el ResultSet: " + ex.getMessage());
+	        }
+	    }
 
-		return videos;
+	    return proyectos;
 	}
 
-	public Optional<Video> findById(int id) {
-		ResultSet resultSet = conexionEx2.getById("Ejercicio2", "videos", id);
-		Video video = null;
 
-		try {
-			while (resultSet.next()) {
-				video = new Video();
-				video.setId(resultSet.getInt("id"));
-				video.setTitle(resultSet.getString("title"));
-				video.setDirector(resultSet.getString("director"));
-				video.setClientId(resultSet.getInt("clientId"));
-			}
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-			System.out.println("Error en la adquisición de datos");
-		} finally {
-			try {
-				resultSet.close();
-			} catch (SQLException ex) {
-				System.out.println("Error al cerrar el ResultSet: " + ex.getMessage());
-			}
-		}
-		return Optional.ofNullable(video);
+	public Optional<Proyecto> findById(String id) {
+	    ResultSet resultSet = conexionEx3.getById("Ejercicio3", "proyectos", id, "id");
+	    Proyecto proyecto = null;
+
+	    try {
+	        while (resultSet.next()) {
+	            proyecto = new Proyecto();
+	            proyecto.setId(resultSet.getString("id"));
+	            proyecto.setNombre(resultSet.getString("nombre"));
+	            proyecto.setHoras(resultSet.getInt("horas"));
+	        }
+	    } catch (SQLException ex) {
+	        System.out.println(ex.getMessage());
+	        System.out.println("Error en la adquisición de datos");
+	    } finally {
+	        try {
+	            resultSet.close();
+	        } catch (SQLException ex) {
+	            System.out.println("Error al cerrar el ResultSet: " + ex.getMessage());
+	        }
+	    }
+	    return Optional.ofNullable(proyecto);
 	}
 
-	public void delete(int id) {
-		Optional<Video> video = this.findById(id);
-		if (video.isPresent()) {
-			conexionEx2.delete("Ejercicio2", "videos", video.get().getId());
+
+	public void delete(String id) {
+		Optional<Proyecto> proyecto = this.findById(id);
+		if (proyecto.isPresent()) {
+			conexionEx3.delete("Ejercicio3", "proyectos", id, "id");
 	    }
 	}
 	
-	public Optional<Video> update(Video video, String primaryKey) {
-		Object result = conexionEx2.update("Ejercicio2", video, primaryKey);
+	public Optional<Proyecto> update(Proyecto proyecto, String primaryKey) {
+		Object result = conexionEx3.update("Ejercicio3", proyecto, primaryKey, true);
 		
-		if (result != null && result instanceof Video) {
-	        return Optional.of((Video) result);
+		if (result != null && result instanceof Proyecto) {
+	        return Optional.of((Proyecto) result);
 	    } else {
 	        return Optional.empty();
 	    }
 	}
 	
-	public void create(Video video) {
-		conexionEx2.insertData("Ejercicio2", video);
+	public void create(Proyecto proyecto) {
+		conexionEx3.insertData("Ejercicio3", proyecto);
 	}
 
 }

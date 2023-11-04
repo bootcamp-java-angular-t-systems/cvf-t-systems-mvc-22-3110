@@ -3,146 +3,146 @@ package UD22.ejercicios.ejercicio3.views.proyecto;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import UD22.ejercicios.ejercicio2.models.Video;
 
 import java.awt.Font;
 import java.util.List;
 import javax.swing.JButton;
 import java.awt.Color;
 
+import UD22.ejercicios.ejercicio3.models.Proyecto;
+
 public class ListProyectoView extends JFrame {
-	private static ListProyectoView instance = null;
-	private JPanel videoPanel;
-	private JButton btnCrearVideo;
+    private static ListProyectoView instance = null;
+    private JPanel proyectoPanel;
+    private JButton btnCrearProyecto;
 
-	public static ListProyectoView getInstance() {
-		if (instance == null)
-			instance = new ListProyectoView();
-		return instance;
-	}
+    public static ListProyectoView getInstance() {
+        if (instance == null)
+            instance = new ListProyectoView();
+        return instance;
+    }
 
-	private ListProyectoView() {
-		getContentPane().setLayout(null);
-		JLabel lblNewLabel = new JLabel("Videos");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNewLabel.setBounds(35, 23, 265, 46);
-		getContentPane().add(lblNewLabel);
+    private ListProyectoView() {
+        getContentPane().setLayout(null);
+        JLabel lblNewLabel = new JLabel("Proyectos");
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
+        lblNewLabel.setBounds(35, 23, 265, 46);
+        getContentPane().add(lblNewLabel);
 
-		videoPanel = new JPanel();
-		videoPanel.setLayout(null);
-		videoPanel.setBounds(35, 80, 870, 800);
-		getContentPane().add(videoPanel);
+        proyectoPanel = new JPanel();
+        proyectoPanel.setLayout(null);
+        proyectoPanel.setBounds(35, 80, 870, 800);
+        getContentPane().add(proyectoPanel);
 
-		btnCrearVideo = new JButton("Crear video");
-		btnCrearVideo.setForeground(Color.WHITE);
-		btnCrearVideo.setBackground(new Color(0, 128, 0));
-		int buttonWidth = btnCrearVideo.getPreferredSize().width;
-		int xPosition = videoPanel.getX() + videoPanel.getWidth() - buttonWidth;
-		btnCrearVideo.setBounds(xPosition, 23, buttonWidth, 28);
-		getContentPane().add(btnCrearVideo);
-	}
+        btnCrearProyecto = new JButton("Crear proyecto");
+        btnCrearProyecto.setForeground(Color.WHITE);
+        btnCrearProyecto.setBackground(new Color(0, 128, 0));
+        int buttonWidth = btnCrearProyecto.getPreferredSize().width;
+        int xPosition = proyectoPanel.getX() + proyectoPanel.getWidth() - buttonWidth;
+        btnCrearProyecto.setBounds(xPosition, 23, buttonWidth, 28);
+        getContentPane().add(btnCrearProyecto);
+    }
 
-	public JButton getBtnCrearVideo() {
-		return btnCrearVideo;
-	}
+    public JButton getBtnCrearProyecto() {
+        return btnCrearProyecto;
+    }
 
-	public JPanel getVideosPanel() {
-		return videoPanel;
-	}
+    public JPanel getProyectoPanel() {
+        return proyectoPanel;
+    }
 
-	public void generarVideos(List<Video> videos) {
-		videoPanel.removeAll();
-		videoPanel.revalidate();
-		videoPanel.repaint();
-		generarCabeceraVideos();
+    public void generarProyectos(List<Proyecto> proyectos) {
+        proyectoPanel.removeAll();
+        proyectoPanel.revalidate();
+        proyectoPanel.repaint();
+        generarCabeceraProyectos();
 
-		int yOffset = 40;
-		int buttonWidth = 89;
-		int buttonHeight = 23;
-		int buttonMargin = 10;
-		int xStart = 0;
+        int yOffset = 40;
+        int buttonWidth = 89;
+        int buttonHeight = 23;
+        int buttonMargin = 10;
+        int xStart = 0;
 
-		for (Video video : videos) {
-			JLabel lblId = new JLabel(String.valueOf(video.getId()));
-			lblId.putClientProperty("videoID", video.getId());
-			lblId.setBounds(xStart, yOffset, 52, 28);
+        for (Proyecto proyecto : proyectos) {
+            JLabel lblId = new JLabel(proyecto.getId());
+            lblId.putClientProperty("proyectoID", proyecto.getId());
+            lblId.setBounds(xStart, yOffset, 52, 28);
 
-			xStart += 52;
+            xStart += 52;
 
-			JLabel lblTitulo = new JLabel(video.getTitle());
-			lblTitulo.putClientProperty("videoID", video.getId());
-			lblTitulo.setBounds(xStart, yOffset, 155, 28);
+            JLabel lblNombre = new JLabel(proyecto.getNombre());
+            lblNombre.putClientProperty("proyectoID", proyecto.getId());
+            lblNombre.setBounds(xStart, yOffset, 155, 28);
 
-			xStart += 165;
+            xStart += 165;
 
-			JLabel lblDirector = new JLabel(video.getDirector());
-			lblDirector.putClientProperty("videoID", video.getId());
-			lblDirector.setBounds(xStart, yOffset, 175, 28);
+            JLabel lblHoras = new JLabel(String.valueOf(proyecto.getHoras()));
+            lblHoras.putClientProperty("proyectoID", proyecto.getId());
+            lblHoras.setBounds(xStart, yOffset, 175, 28);
 
-			xStart += 185;
+            xStart += 185;
 
-			JButton btnDeleteVideo = new JButton("Delete");
-			btnDeleteVideo.putClientProperty("videoID", video.getId());
-			btnDeleteVideo.setForeground(Color.BLACK);
-			btnDeleteVideo.setBackground(Color.RED);
-			btnDeleteVideo.setBounds(xStart, yOffset, buttonWidth, buttonHeight);
+            JButton btnDeleteProyecto = new JButton("Delete");
+            btnDeleteProyecto.putClientProperty("proyectoID", proyecto.getId());
+            btnDeleteProyecto.setForeground(Color.BLACK);
+            btnDeleteProyecto.setBackground(Color.RED);
+            btnDeleteProyecto.setBounds(xStart, yOffset, buttonWidth, buttonHeight);
 
-			xStart += buttonWidth + buttonMargin;
+            xStart += buttonWidth + buttonMargin;
 
-			JButton btnUpdateVideo = new JButton("Update");
-			btnUpdateVideo.putClientProperty("videoID", video.getId());
-			btnUpdateVideo.setForeground(Color.BLACK);
-			btnUpdateVideo.setBackground(Color.ORANGE);
-			btnUpdateVideo.setBounds(xStart, yOffset, buttonWidth, buttonHeight);
+            JButton btnUpdateProyecto = new JButton("Update");
+            btnUpdateProyecto.putClientProperty("proyectoID", proyecto.getId());
+            btnUpdateProyecto.setForeground(Color.BLACK);
+            btnUpdateProyecto.setBackground(Color.ORANGE);
+            btnUpdateProyecto.setBounds(xStart, yOffset, buttonWidth, buttonHeight);
 
-			videoPanel.add(lblId);
-			videoPanel.add(lblTitulo);
-			videoPanel.add(lblDirector);
-			videoPanel.add(btnDeleteVideo);
-			videoPanel.add(btnUpdateVideo);
+            proyectoPanel.add(lblId);
+            proyectoPanel.add(lblNombre);
+            proyectoPanel.add(lblHoras);
+            proyectoPanel.add(btnDeleteProyecto);
+            proyectoPanel.add(btnUpdateProyecto);
 
-			yOffset += 30;
-			xStart = 0;
-		}
+            yOffset += 30;
+            xStart = 0;
+        }
 
-		revalidate();
-	}
+        revalidate();
+    }
 
-	private void generarCabeceraVideos() {
-		int yOffset = 0;
-		int xStart = 0;
+    private void generarCabeceraProyectos() {
+        int yOffset = 0;
+        int xStart = 0;
 
-		JLabel lblIdVideo = new JLabel("ID");
-		lblIdVideo.setBounds(xStart, yOffset, 52, 28);
-		videoPanel.add(lblIdVideo);
+        JLabel lblIdProyecto = new JLabel("ID");
+        lblIdProyecto.setBounds(xStart, yOffset, 52, 28);
+        proyectoPanel.add(lblIdProyecto);
 
-		xStart += 52;
+        xStart += 52;
 
-		JLabel lblTituloVideo = new JLabel("TÍTULO");
-		lblTituloVideo.setBounds(xStart, yOffset, 150, 28);
-		videoPanel.add(lblTituloVideo);
+        JLabel lblNombreProyecto = new JLabel("NOMBRE");
+        lblNombreProyecto.setBounds(xStart, yOffset, 150, 28);
+        proyectoPanel.add(lblNombreProyecto);
 
-		xStart += 150;
+        xStart += 150;
 
-		JLabel lblDirectorVideo = new JLabel("DIRECTOR");
-		lblDirectorVideo.setBounds(xStart, yOffset, 225, 28);
-		videoPanel.add(lblDirectorVideo);
+        JLabel lblHorasProyecto = new JLabel("HORAS");
+        lblHorasProyecto.setBounds(xStart, yOffset, 225, 28);
+        proyectoPanel.add(lblHorasProyecto);
 
-		int buttonWidth = 55;
+        int buttonWidth = 55;
 
-		xStart += 225;
+        xStart += 225;
 
-		JLabel lblDeleteVideo = new JLabel("DELETE");
-		lblDeleteVideo.setBounds(xStart, yOffset, buttonWidth, 23);
-		videoPanel.add(lblDeleteVideo);
+        JLabel lblDeleteProyecto = new JLabel("DELETE");
+        lblDeleteProyecto.setBounds(xStart, yOffset, buttonWidth, 23);
+        proyectoPanel.add(lblDeleteProyecto);
 
-		xStart += buttonWidth + 20;
+        xStart += buttonWidth + 20;
 
-		JLabel lblUpdateVideo = new JLabel("UPDATE");
-		lblUpdateVideo.setBounds(xStart, yOffset, 85, 23);
-		videoPanel.add(lblUpdateVideo);
+        JLabel lblUpdateProyecto = new JLabel("UPDATE");
+        lblUpdateProyecto.setBounds(xStart, yOffset, 85, 23);
+        proyectoPanel.add(lblUpdateProyecto);
 
-		yOffset += 30;
-	}
-
+        yOffset += 30;
+    }
 }
