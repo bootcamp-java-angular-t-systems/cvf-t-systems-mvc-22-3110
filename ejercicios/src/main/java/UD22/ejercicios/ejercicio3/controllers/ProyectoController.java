@@ -1,4 +1,4 @@
-package UD22.ejercicios.ejercicio2.controllers;
+package UD22.ejercicios.ejercicio3.controllers;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -16,14 +16,14 @@ import UD22.ejercicios.ejercicio2.views.video.CreateVideoView;
 import UD22.ejercicios.ejercicio2.views.video.ListVideoView;
 import UD22.ejercicios.ejercicio2.views.video.UpdateVideoView;
 
-public class VideoController implements ActionListener {
+public class ProyectoController implements ActionListener {
 
 	private ListVideoView vista;
 	private VideoService service;
 	private UpdateVideoView updateView;
 	private CreateVideoView createView;
 
-	public VideoController(ListVideoView vista, VideoService service) {
+	public ProyectoController(ListVideoView vista, VideoService service) {
 		this.vista = vista;
 		this.service = service;
 	}
@@ -114,6 +114,8 @@ public class VideoController implements ActionListener {
 
 		video.setTitle(nuevoTitulo);
 		video.setDirector(nuevoDirector);
+		System.out.println("nuevo titulo " + nuevoTitulo);
+		System.out.println("nuevo dirctor " + nuevoDirector);
 		service.update(video, "id");
 		printearVideos();
 		crearActionListeners();

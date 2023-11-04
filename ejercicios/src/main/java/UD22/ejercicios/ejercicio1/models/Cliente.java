@@ -15,7 +15,6 @@ public class Cliente {
 		this.apellido = apellido;
 		this.direccion = direccion;
 		this.dni = dni;
-		System.out.println(this.toString());
 	}
 
 	public Cliente() {	}

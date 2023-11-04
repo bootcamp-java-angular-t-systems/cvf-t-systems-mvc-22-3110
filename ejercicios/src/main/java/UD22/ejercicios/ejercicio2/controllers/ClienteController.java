@@ -76,7 +76,6 @@ public class ClienteController implements ActionListener {
 		}
 		// Abre la ventana con los videos
 		if (e.getActionCommand().equals("Videos")) {
-			System.out.println("clickar videos");
 			ListVideoView listVideoView = ListVideoView.getInstance();
 			VideoService videoService = VideoService.getInstance();
 

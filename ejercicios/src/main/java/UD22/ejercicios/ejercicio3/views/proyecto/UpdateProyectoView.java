@@ -1,4 +1,4 @@
-package UD22.ejercicios.ejercicio2.views.video;
+package UD22.ejercicios.ejercicio3.views.proyecto;
 
 
 import javax.swing.JFrame;
@@ -11,14 +11,14 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-public class UpdateVideoView extends JFrame {
+public class UpdateProyectoView extends JFrame {
     private JTextField tituloField;
     private JTextField directorField;
     private Video video;
     private JButton guardarBtn;
     
 
-    public UpdateVideoView() {}
+    public UpdateProyectoView() {}
     
     
     public void iniciarVista() {
@@ -55,7 +55,7 @@ public class UpdateVideoView extends JFrame {
 
         guardarBtn = new JButton("Almacenar cambios");
         guardarBtn.setBounds(150, 120, 100, 30);
-        
+
         tituloField.setText(video.getTitle());
         directorField.setText(video.getDirector());
         

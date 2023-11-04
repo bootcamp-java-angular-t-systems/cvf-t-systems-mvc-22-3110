@@ -45,15 +45,23 @@ public class Conexion {
 	}
 
 	public void createDB(String name) {
-		try {
-			String Query = "CREATE DATABASE IF NOT EXISTS " + name;
-			Statement st = conexion.createStatement();
-			st.executeUpdate(Query);
-			System.out.println("Se ha creado la base de datos " + name + " de forma exitosa");
-		} catch (SQLException ex) {
-			System.out.println("Esto no funciona...");
-		}
+	    try {
+	        // Eliminar la base de datos si ya existe
+	        String deleteQuery = "DROP DATABASE IF EXISTS " + name;
+	        Statement deleteStatement = conexion.createStatement();
+	        deleteStatement.executeUpdate(deleteQuery);
+
+	        // Crear la base de datos
+	        String createQuery = "CREATE DATABASE IF NOT EXISTS " + name;
+	        Statement createStatement = conexion.createStatement();
+	        createStatement.executeUpdate(createQuery);
+
+	        System.out.println("Se ha creado la base de datos " + name + " de forma exitosa");
+	    } catch (SQLException ex) {
+	        System.out.println("Error al crear la base de datos: " + ex.getMessage());
+	    }
 	}
+
 
 	public void createTable(String db, Object object, List<String> pks, String fk) {
 		try {
@@ -94,6 +102,27 @@ public class Conexion {
 	        useDbStatement.executeUpdate(useDbQuery);
 
 	        String deleteQuery = "DELETE FROM " + tableName + " WHERE id = " + id;
+	        Statement deleteStatement = conexion.createStatement();
+	        int rowsAffected = deleteStatement.executeUpdate(deleteQuery);
+
+	        if (rowsAffected > 0) {
+	            System.out.println("Cliente eliminado con éxito.");
+	        } else {
+	            System.out.println("El cliente con ID " + id + " no existe en la base de datos.");
+	        }
+	    } catch (SQLException ex) {
+	        System.out.println(ex.getMessage());
+	        System.out.println("Error en la eliminación de datos");
+	    }
+	}
+	
+	public void delete(String db, String tableName, String id, String atribute) {
+		try {
+	        String useDbQuery = "USE " + db;
+	        Statement useDbStatement = conexion.createStatement();
+	        useDbStatement.executeUpdate(useDbQuery);
+
+	        String deleteQuery = "DELETE FROM " + tableName + " WHERE " + atribute + " = '" + id + "'";
 	        Statement deleteStatement = conexion.createStatement();
 	        int rowsAffected = deleteStatement.executeUpdate(deleteQuery);
 
@@ -200,6 +229,26 @@ public class Conexion {
 		}
 		return resultSet;
 	}
+	
+	public ResultSet getById(String db, String table_name, String id, String attribute) {
+		ResultSet resultSet = null;
+
+		try {
+			String useDbQuery = "USE " + db;
+			Statement useDbStatement = conexion.createStatement();
+			useDbStatement.executeUpdate(useDbQuery);
+
+			String selectQuery = "SELECT * FROM " + table_name + " WHERE " + attribute + " = '" + id + "'";
+			Statement selectStatement = conexion.createStatement();
+			resultSet = selectStatement.executeQuery(selectQuery);
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+			System.out.println("Error en la adquisición de datos");
+		}
+
+		return resultSet;
+	}
+	
 
 	public ResultSet getById(String db, String table_name, int id) {
 		ResultSet resultSet = null;
