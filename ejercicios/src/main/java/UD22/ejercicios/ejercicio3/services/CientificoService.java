@@ -84,7 +84,7 @@ public class CientificoService {
 
 	
 	public Optional<Cientifico> update(Cientifico cientifico, String primaryKey) {
-	    Object result = conexionEx3.update("Ejercicio3", cientifico, primaryKey);
+	    Object result = conexionEx3.update("Ejercicio3", cientifico, primaryKey, true);
 	    
 	    if (result != null && result instanceof Cientifico) {
 	        return Optional.of((Cientifico) result);

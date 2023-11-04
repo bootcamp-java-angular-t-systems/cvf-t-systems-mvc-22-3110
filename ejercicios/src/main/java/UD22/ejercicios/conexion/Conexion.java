@@ -346,5 +346,63 @@ public class Conexion {
 	    }
 	    return object;
 	}
+	
+	
+
+	public Object update(String db, Object object, String primaryKey, boolean pkIsString) {
+	    try {
+	        Field[] fields = obtenerCampos(object);
+	        String tableName = obtenerNombreTabla(object);
+	        String updateCondition = "";
+	        
+	    	String Querydb = "USE " + db + ";";
+	    	Statement stdb = conexion.createStatement();
+			stdb.executeUpdate(Querydb);
+			
+	        StringBuilder updateQuery = new StringBuilder("UPDATE " + tableName + " SET ");
+	        for (Field field : fields) {
+	        	if (field.getName() == "counter")
+					continue;
+	            field.setAccessible(true);
+	            String fieldName = field.getName();
+	            Object fieldValue = field.get(object);
+
+	            if (fieldValue != null) {
+	                if (!fieldName.equals("id")) {
+	                    updateQuery.append(fieldName).append(" = ");
+	                    if (field.getType() == String.class) {
+	                        updateQuery.append("'").append(fieldValue).append("'");
+	                    } else {
+	                        updateQuery.append(fieldValue);
+	                    }
+	                    updateQuery.append(", ");
+	                }
+	            }
+	            if (field.getName() == primaryKey && !pkIsString)
+	            	updateCondition = " WHERE " + primaryKey + " = " + field.get(object);
+	            if (field.getName() == primaryKey && pkIsString)
+	            	updateCondition = " WHERE " + primaryKey + " = '" + field.get(object) + "'";
+	        }
+
+	        if (updateQuery.length() > 0) {
+	            updateQuery.setLength(updateQuery.length() - 2);
+	        } else {
+	            System.out.println("No se proporcionaron valores para actualizar.");
+	            return null;
+	        }
+
+	        String finalUpdateQuery = updateQuery.toString() + updateCondition;
+
+	        System.out.println(finalUpdateQuery);
+
+	        Statement statement = conexion.createStatement();
+	        statement.executeUpdate(finalUpdateQuery);
+	        System.out.println("Datos actualizados correctamente.");
+	    } catch (SQLException | IllegalAccessException ex) {
+	        ex.printStackTrace();
+	        System.out.println("Error en la actualización de datos");
+	    }
+	    return object;
+	}
 
 }

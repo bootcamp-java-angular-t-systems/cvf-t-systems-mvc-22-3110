@@ -15,6 +15,7 @@ import UD22.ejercicios.ejercicio3.models.Cientifico;
 public class ListCientificoView extends JFrame {
     private JPanel cientificosPanel;
     private JButton btnCrearCientifico;
+    private JButton btnProyecto;
 
     public ListCientificoView() {
         getContentPane().setLayout(null);
@@ -36,13 +37,34 @@ public class ListCientificoView extends JFrame {
         int xPosition = cientificosPanel.getX() + cientificosPanel.getWidth() - buttonWidth;
         btnCrearCientifico.setBounds(xPosition, 23, buttonWidth, 28);
         getContentPane().add(btnCrearCientifico);
+        
+        btnProyecto = new JButton("Proyecto");
+        btnProyecto.setForeground(Color.WHITE);
+        btnProyecto.setBackground(new Color(0, 0, 128));
+        int proyectoButtonWidth = btnProyecto.getPreferredSize().width;
+        int xProyectoButtonPosition = xPosition - proyectoButtonWidth - 10;
+        btnProyecto.setBounds(xProyectoButtonPosition, 23, proyectoButtonWidth, 28);
+        getContentPane().add(btnProyecto);
     }
 
     public void setCientificosPanel(JPanel cientificosPanel) {
         this.cientificosPanel = cientificosPanel;
     }
 
-    public JButton getBtnCrearCientifico() {
+    
+    public JButton getBtnProyecto() {
+		return btnProyecto;
+	}
+
+	public void setBtnProyecto(JButton btnProyecto) {
+		this.btnProyecto = btnProyecto;
+	}
+
+	public void setBtnCrearCientifico(JButton btnCrearCientifico) {
+		this.btnCrearCientifico = btnCrearCientifico;
+	}
+
+	public JButton getBtnCrearCientifico() {
         return btnCrearCientifico;
     }
 
@@ -59,7 +81,6 @@ public class ListCientificoView extends JFrame {
         int yOffset = 40;
 
         for (Cientifico cientifico : cientificos) {
-        	cientifico.toString();
             JLabel lblDni = new JLabel(cientifico.getDni());
             lblDni.putClientProperty("cientificoID", cientifico.getDni());
             lblDni.setBounds(0, yOffset, 100, 28);

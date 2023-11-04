@@ -15,15 +15,19 @@ import UD22.ejercicios.ejercicio2.views.cliente.CreateClientView;
 import UD22.ejercicios.ejercicio2.views.video.CreateVideoView;
 import UD22.ejercicios.ejercicio2.views.video.ListVideoView;
 import UD22.ejercicios.ejercicio2.views.video.UpdateVideoView;
+import UD22.ejercicios.ejercicio3.services.ProyectoService;
+import UD22.ejercicios.ejercicio3.views.proyecto.CreateProyectoView;
+import UD22.ejercicios.ejercicio3.views.proyecto.ListProyectoView;
+import UD22.ejercicios.ejercicio3.views.proyecto.UpdateProyectoView;
 
 public class ProyectoController implements ActionListener {
 
-	private ListVideoView vista;
-	private VideoService service;
-	private UpdateVideoView updateView;
-	private CreateVideoView createView;
+	private ListProyectoView vista;
+	private ProyectoService service;
+	private UpdateProyectoView updateView;
+	private CreateProyectoView createView;
 
-	public ProyectoController(ListVideoView vista, VideoService service) {
+	public ProyectoController(ListProyectoView vista, ProyectoService service) {
 		this.vista = vista;
 		this.service = service;
 	}
